@@ -1,8 +1,11 @@
 #include <iostream>
 #include "../sylar/log.h"
-int main(){
-    sylar::LogEvent event(2);
-    std::cout<<"hello sylay log"<<std::endl;
-    std::cout<<event.getLine()<<std::endl;
+
+int main() {
+    sylar::Logger::ptr logger(new sylar::Logger);
+    logger->addAppender(sylar::LogAppender::ptr(new sylar::StdoutLogAppender));
+    sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__,__LINE__,0,1,2,time(0)));
+    logger->log(sylar::LogLevel::DEBUG,event);
+    logger->log(sylar::LogLevel::INFO,event);
     return 0;
 }

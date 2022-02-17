@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(LIB_SRC sylar/log.cc)
 add_library(sylar SHARED ${LIB_SRC}) #生成so文件
-add_executable(test tests/test.cpp)
+add_executable(test tests/test.cpp )
 add_dependencies(test sylar)
 target_link_libraries(test sylar)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
