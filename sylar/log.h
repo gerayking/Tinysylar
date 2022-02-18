@@ -12,6 +12,17 @@
 #include <stdarg.h>
 #include <map>
 
+#define SYLAR_LOG_LEVEL(logger,level) \
+    if(logger->getLevel() <= level)   \
+         sylar::LogEventWrap(sylar::LogEvent::ptr(new sylar::LogEvent(logger,level, \
+         __FILE__,__LINE__, 0 ,sylar::GetThreadId(), \
+        sylar::GetFiberId(), time(0)))).getSS()
+#define SYLAR_LOG_DEBUG(logger) SYLAR_LOG_LEVEL(logger,sylar::LogLevel::DEBUG)
+#define SYLAR_LOG_INFO(logger) SYLAR_LOG_LEVEL(logger,sylar::LogLevel::INFO)
+#define SYLAR_LOG_WARN(logger) SYLAR_LOG_LEVEL(logger,sylar::LogLevel::WARN)
+#define SYLAR_LOG_ERROR(logger) SYLAR_LOG_LEVEL(logger,sylar::LogLevel::ERROR)
+#define SYLAR_LOG_FATAL(logger) SYLAR_LOG_LEVEL(logger,sylar::LogLevel::FATAL)
+
 namespace sylar {
 
     class Logger;
@@ -37,15 +48,12 @@ namespace sylar {
     // 日志事件
     class LogEvent {
     public:
-        ~LogEvent(){std::cout<<"destory LogEvent"<<std::endl;}
         typedef std::shared_ptr<LogEvent> ptr;
-
-        LogEvent(int32_t line);
-        LogEvent(const char *file, int32_t line, uint32_t elapse, uint32_t thread_id, uint32_t fiber_id, uint64_t time);
+        LogEvent(std::shared_ptr<Logger> logger,LogLevel::Level level,const char *file, int32_t line, uint32_t elapse, uint32_t thread_id, uint32_t fiber_id, uint64_t time);
 
         const char *getFileName() const { return m_filename; }
 
-        int32_t getLine() const { return m_line; }
+        int32_t getLine() const {return m_line;}
 
         uint32_t getElapse() const { return m_elapse; }
 
@@ -58,6 +66,8 @@ namespace sylar {
         std::string getContent() const { return m_ss.str(); }
 
         std::stringstream &getSS() { return m_ss; }
+        std::shared_ptr<Logger> getLOgger()const{return m_logger;}
+        LogLevel::Level getLevel(){return m_level;}
 
     private:
         const char *m_filename = nullptr;   // 文件名
@@ -66,30 +76,35 @@ namespace sylar {
         uint32_t m_threadId = 0;        // 线程id
         uint32_t m_fiberId = 0;         // 协程id
         uint64_t m_time = 0;            // 时间戳
+        std::string m_thread_name;       // 线程名称
         std::stringstream m_ss;          // 日志内容
+        std::shared_ptr<Logger> m_logger; //
+        LogLevel::Level m_level;
     };
-
+    class LogEventWrap{
+    public:
+        LogEventWrap(const LogEvent::ptr &mEvent);
+        ~LogEventWrap();
+        std::stringstream& getSS();
+    private:
+        LogEvent::ptr m_event;
+    };
     // 日志格式器
     class LogFormatter {
     public:
         typedef std::shared_ptr<LogFormatter> ptr;
-
         LogFormatter(const std::string &pattern);//根据pattern来解析出信息
         std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event);
-
         class FormatItem {
         public:
             typedef std::shared_ptr<FormatItem> ptr;
-
             virtual ~FormatItem() {}
-
             virtual void
             format(std::ostream &os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
         };
 
     private:
         void init();
-
     private:
         bool m_error = false;
         std::string m_pattern;

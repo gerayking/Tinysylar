@@ -1,11 +1,13 @@
 #include <iostream>
 #include "../sylar/log.h"
-
+#include "../sylar/util.h"
 int main() {
     sylar::Logger::ptr logger(new sylar::Logger);
     logger->addAppender(sylar::LogAppender::ptr(new sylar::StdoutLogAppender));
-    sylar::LogEvent::ptr event(new sylar::LogEvent(__FILE__,__LINE__,0,1,2,time(0)));
-    logger->log(sylar::LogLevel::DEBUG,event);
-    logger->log(sylar::LogLevel::INFO,event);
+    SYLAR_LOG_DEBUG(logger)<<"Test DEBUG";
+    SYLAR_LOG_INFO(logger)<<"Test INFO";
+    SYLAR_LOG_WARN(logger)<<"Test WARN";
+    SYLAR_LOG_ERROR(logger)<<"Test ERROR";
+    SYLAR_LOG_FATAL(logger)<<"Test FATAL";
     return 0;
 }

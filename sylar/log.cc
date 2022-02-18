@@ -6,11 +6,19 @@
 namespace sylar  {
     const std::vector<std::string> LogLevel::levelString = {"UNKNOWN", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"};
 
-    LogEvent::LogEvent(int32_t line):m_line(line){}
-    LogEvent::LogEvent(const char* file,int32_t line,uint32_t elapse
+
+    LogEvent::LogEvent(std::shared_ptr<Logger>logger,LogLevel::Level level,const char* file,int32_t line,uint32_t elapse
             ,uint32_t thread_id,uint32_t fiber_id, uint64_t time)
-            :m_filename(file),m_line(line),m_elapse(elapse),m_threadId(thread_id)
-            ,m_fiberId(fiber_id),m_time(time){}
+            :m_logger(logger)
+            ,m_level(level)
+            ,m_filename(file)
+            ,m_line(line)
+            ,m_elapse(elapse)
+            ,m_threadId(thread_id)
+            ,m_fiberId(fiber_id)
+            ,m_time(time){}
+
+
     const char *LogLevel::ToString(LogLevel::Level level) {
         if (level > LogLevel::levelString.size())return LogLevel::levelString[0].c_str();
         return LogLevel::levelString[level].c_str();
@@ -18,7 +26,7 @@ namespace sylar  {
     Logger::Logger(const std::string &name) :
     m_name(name),
     m_level(LogLevel::DEBUG){
-        m_formatter.reset(new LogFormatter("%d [%p] %f %l %m %n"));
+        m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
     }
 
     void Logger::addAppender(LogAppender::ptr appender) {
@@ -189,6 +197,14 @@ namespace sylar  {
             os << std::endl;
         }
     };
+    class TabFormatItem : public LogFormatter::FormatItem {
+    public:
+        TabFormatItem(const std::string &str = "") {}
+
+        void format(std::ostream &os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
+            os << "\t";
+        }
+    };
 
     class DateTimeFormatItem : public LogFormatter::FormatItem {
     public:
@@ -294,7 +310,7 @@ namespace sylar  {
                 XX(d, DateTimeFormatItem),          //d:时间
                 XX(f, FileNameFormatItem),          //f:文件名
                 XX(l, LineFormatItem),              //l:行号
-//                XX(T, TabFormatItem),               //T:Tab
+                XX(T, TabFormatItem),               //T:Tab
                 XX(F, FiberIdFormatItem),           //F:协程id
                 XX(N, ThreadNameFormatItem),        //N:线程名称
 #undef XX
@@ -312,10 +328,19 @@ namespace sylar  {
                     m_items.push_back(it->second(std::get<1>(i)));
                 }
             }
-            std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
+//            std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
         }
-        std::cout << m_items.size() << std::endl;
+//        std::cout << m_items.size() << std::endl;
     }
 
+    LogEventWrap::LogEventWrap(const LogEvent::ptr &mEvent) : m_event(mEvent) {}
+
+    std::stringstream& LogEventWrap::getSS() {
+        return m_event->getSS();
+    }
+
+    LogEventWrap::~LogEventWrap(){
+        m_event->getLOgger()->log(m_event->getLevel(),m_event);
+    }
 }
 
