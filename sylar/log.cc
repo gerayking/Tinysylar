@@ -5,8 +5,6 @@
 #include <string.h>
 namespace sylar  {
     const std::vector<std::string> LogLevel::levelString = {"UNKNOWN", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"};
-
-
     LogEvent::LogEvent(std::shared_ptr<Logger>logger,LogLevel::Level level,const char* file,int32_t line,uint32_t elapse
             ,uint32_t thread_id,uint32_t fiber_id, uint64_t time)
             :m_logger(logger)
@@ -17,6 +15,23 @@ namespace sylar  {
             ,m_threadId(thread_id)
             ,m_fiberId(fiber_id)
             ,m_time(time){}
+
+    void LogEvent::format(const char *fmt, ...) {
+        va_list al;
+        va_start(al,fmt);
+        format(fmt,al);
+        va_end(al);
+    }
+
+    void LogEvent::format(const char *fmt, va_list al) {
+        char *buf = nullptr;
+        int len = vasprintf(&buf, fmt, al);
+        if(len!=-1){
+            m_ss<<std::string(buf,len);
+            free(buf);
+        }
+
+    }
 
 
     const char *LogLevel::ToString(LogLevel::Level level) {
@@ -75,7 +90,7 @@ namespace sylar  {
     }
 
     FileLogAppender::FileLogAppender(const std::string &filename) : m_filename(filename) {
-
+        m_filestream.open(filename);
     }
 
     void FileLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) {
@@ -328,9 +343,7 @@ namespace sylar  {
                     m_items.push_back(it->second(std::get<1>(i)));
                 }
             }
-//            std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
         }
-//        std::cout << m_items.size() << std::endl;
     }
 
     LogEventWrap::LogEventWrap(const LogEvent::ptr &mEvent) : m_event(mEvent) {}
@@ -340,7 +353,28 @@ namespace sylar  {
     }
 
     LogEventWrap::~LogEventWrap(){
-        m_event->getLOgger()->log(m_event->getLevel(),m_event);
+        m_event->getLogger()->log(m_event->getLevel(), m_event);
     }
-}
+
+    LogEvent::ptr LogEventWrap::getEvent() {
+        return m_event;
+    }
+
+    Logger::ptr LoggerManager::getLogger(const std::string &name) {
+        if(m_logger.find(name)!=m_logger.end())return m_logger[name];
+        return m_root;
+    }
+    LoggerManager::LoggerManager() {
+        m_root.reset(new Logger);
+        m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
+    }
+
+    void LoggerManager::init() {}
+    const std::map<std::string, Logger::ptr> &LoggerManager::getLogger()
+        const {
+      return m_logger;
+    }
+    const Logger::ptr LoggerManager::getRoot() { return m_root; }
+
+    }
 

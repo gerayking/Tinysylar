@@ -14,9 +14,4 @@ namespace sylar{
     pid_t GetFiberId() {
         return 0;
     }
-//    char* GetThreadName(){
-//        char* buffer = new char[32];
-//        pthread_getname_np(GetThreadId(),buffer,32);
-//        return buffer;
-//    }
 }

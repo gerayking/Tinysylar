@@ -1,0 +1,6 @@
+2022-02-18 15:52:40	12716	12716	0	[DEBUG]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:8	Test DEBUG
+2022-02-18 15:52:40	12716	12716	0	[INFO]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:9	Test INFO
+2022-02-18 15:52:40	12716	12716	0	[WARN]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:10	Test WARN
+2022-02-18 15:52:40	12716	12716	0	[ERROR]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:11	Test ERROR
+2022-02-18 15:52:40	12716	12716	0	[FATAL]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:12	Test FATAL
+2022-02-18 15:52:40	12716	12716	0	[DEBUG]	[root]	/home/geray/cplusplus/workspace/tests/test.cpp:14	test macro fmt error 10
