@@ -4,8 +4,6 @@
 #include "../sylar/log.h"
 sylar::ConfigVar<int>::ptr g_int_value_config =
     sylar::Config::Lookup("system.port", (int)8080, "system port");
-sylar::ConfigVar<float>::ptr g_int_valuex_config =
-    sylar::Config::Lookup("system.port", (float)8080, "system port");
 sylar::ConfigVar<int>::ptr g_float_value_config =
     sylar::Config::Lookup("system.value", 10, "system value");
 sylar::ConfigVar<std::vector<int>>::ptr g_int_vec_value_config =
@@ -99,9 +97,72 @@ void test_config() {
 
 #endif
 }
+class Person{
+ public:
+  std::string m_name;
+  int m_age = 0;
+  bool m_sex = 0;
+  std::string toString()const{
+    std::stringstream ss;
+    ss<<"[Person name="<<m_name
+    << " age="<<m_age
+    << " sex="<<m_sex
+    << "]";
+    return ss.str();
+  }
+};
+sylar::ConfigVar<Person>::ptr g_person = sylar::Config::Lookup("class.person",Person(),"system person");
+sylar::ConfigVar<std::map<std::string,Person>>::ptr g_person_map = sylar::Config::Lookup("class.map",std::map<std::string,Person>(),"system person");
+sylar::ConfigVar<std::map<std::string,std::vector<Person>>>::ptr g_person_map_vector = sylar::Config::Lookup("class.vec_map",std::map<std::string,std::vector<Person>>(),"system person");
 
+namespace sylar{
+template <>
+class LexicalCast<std::string, Person> {
+ public:
+  Person operator()(const std::string& v) {
+    YAML::Node node = YAML::Load(v);
+    Person p;
+    p.m_name = node["name"].as<std::string>();
+    p.m_age = node["age"].as<int>();
+    p.m_sex = node["sex"].as<bool>();
+    return p;
+  }
+};
+template <>
+class LexicalCast<Person, std::string> {
+ public:
+  std::string operator()(const Person& v) {
+    YAML::Node node;
+    std::stringstream ss;
+    node["name"]=v.m_name;
+    node["age"] = v.m_age;
+    node["sex"] = v.m_sex;
+    ss << node;
+    return ss.str();
+  }
+};
+}
+void  test_class(){
+  SYLAR_LOG_INFO(SYLAR_LOG_ROOT)<<"before : "<<g_person->getVal().toString()<<" - "<<g_person->toString();
+#define XX_PM(g_val,prefix) \
+  {                          \
+  auto m = g_val->getVal();  \
+    for(auto &i : m){        \
+    SYLAR_LOG_INFO(SYLAR_LOG_ROOT)<<prefix<<" : "<<i.first<<" - "<<i.second.toString(); \
+  }                         \
+  SYLAR_LOG_INFO(SYLAR_LOG_ROOT)<<prefix<<": size = "<<m.size();                          \
+  }
+  XX_PM(g_person_map,"before")
+  YAML::Node root =
+
+      YAML::LoadFile("/home/geray/cplusplus/workspace/bin/log.yaml");
+  sylar::Config::LoadFromYaml(root);
+  SYLAR_LOG_INFO(SYLAR_LOG_ROOT)<<"after : "<<g_person->getVal().toString()<<" - "<<g_person->toString();
+  SYLAR_LOG_INFO(SYLAR_LOG_ROOT)<<"after : "<<g_person_map_vector->toString();
+  XX_PM(g_person_map,"after")
+}
 int main(int argc, char** argv) {
-  test_config();
-
+//  test_config();
+  test_class();
   return 0;
 }

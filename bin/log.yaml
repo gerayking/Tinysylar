@@ -13,13 +13,38 @@ logs:
       - type: FileLogAppender
         file: log.txt
       - type: StdoutLogAppender
+class:
+  person:
+    name: "fuxuanwei"
+    age: 15
+    sex: true
+  map:
+    sylar01:
+      name: "fuxuanwei"
+      age: 16
+      sex: false
+  vec_map:
+    k1:
+      - name: "fuxuanwei"
+        age: 21
+        sex: false
+      - name: "fxw1"
+        age: 22
+        sex: true
+    k2:
+      - name: "fxw3"
+        age: 21
+        sex: false
+      - name: "fxw4"
+        age: 22
+        sex: true
 system:
   port: 9900
   value: 15
-  int_vec: [20,40,50]
-  int_list: [30,20,60,20]
-  int_set : [20,30,60,20]
-  int_unordered_set: [20,20,30]
+  int_vec: [ 20,40,50 ]
+  int_list: [ 30,20,60,20 ]
+  int_set: [ 20,30,60,20 ]
+  int_unordered_set: [ 20,20,30 ]
   str_int_map:
-   k: 30
-   k2: 20
+    k: 30
+    k2: 20

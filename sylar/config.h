@@ -50,6 +50,8 @@ class LexicalCast<std::string, std::vector<T>> {
     std::stringstream ss;
     for (size_t i = 0; i < node.size(); ++i) {
       ss.str("");
+
+
       ss << node[i];
       vec.push_back(typename sylar::LexicalCast<std::string, T>()(ss.str()));
     }
@@ -159,13 +161,12 @@ template <class T>
 class LexicalCast<std::string, std::map<std::string,T>> {
  public:
   std::map<std::string,T> operator()(const std::string& v) {
-    std::cout<<"v_val:"<<v;
     YAML::Node node = YAML::Load(v);
     typename std::map<std::string,T> mp;
     std::stringstream ss;
     for(auto it = node.begin(); it != node.end(); ++it){
       ss.str("");
-      ss<<(it->second.Scalar());
+      ss<<it->second;
       mp.insert(std::make_pair(it->first.Scalar(),
                                LexicalCast<std::string,T>()(ss.str())));
     }
