@@ -4,9 +4,11 @@
 #include "../sylar/log.h"
 sylar::ConfigVar<int>::ptr g_int_value_config =
     sylar::Config::Lookup("system.port", (int)8080, "system port");
+sylar::ConfigVar<float>::ptr g_int_valuex_config =
+    sylar::Config::Lookup("system.port", (float)8080, "system port");
 sylar::ConfigVar<int>::ptr g_float_value_config =
     sylar::Config::Lookup("system.value", 10, "system value");
-sylar::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
+sylar::ConfigVar<std::vector<int>>::ptr g_int_vec_value_config =
     sylar::Config::Lookup("system.int_vec", std::vector<int>(2, 2),
                           "system int value");
 sylar::ConfigVar<std::list<int> >::ptr g_int_list_value_config =

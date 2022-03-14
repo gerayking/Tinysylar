@@ -24,6 +24,7 @@ class ConfigVarBase {
   virtual ~ConfigVarBase();
   virtual std::string toString() = 0;
   virtual bool fromString(const std::string& val) = 0;
+  virtual std::string getTypeName() const = 0;
 
  private:
   std::string m_name;
@@ -32,11 +33,14 @@ class ConfigVarBase {
 
 // F : From type
 // T : To type
+// function: change type F to type T
 template <class F, class T>
 class LexicalCast {
  public:
+  // Cast type F to T, when T is 'int','float'....,basic type etc.
   T operator()(const F& v) { return boost::lexical_cast<T>(v); }
 };
+// Cast string to Vector<T>
 template <class T>
 class LexicalCast<std::string, std::vector<T>> {
  public:
@@ -52,6 +56,7 @@ class LexicalCast<std::string, std::vector<T>> {
     return vec;
   }
 };
+// Cast string to Vector<T>
 template <class T>
 class LexicalCast<std::vector<T>, std::string> {
  public:
@@ -154,12 +159,13 @@ template <class T>
 class LexicalCast<std::string, std::map<std::string,T>> {
  public:
   std::map<std::string,T> operator()(const std::string& v) {
+    std::cout<<"v_val:"<<v;
     YAML::Node node = YAML::Load(v);
     typename std::map<std::string,T> mp;
     std::stringstream ss;
     for(auto it = node.begin(); it != node.end(); ++it){
       ss.str("");
-      ss<<*it;
+      ss<<(it->second.Scalar());
       mp.insert(std::make_pair(it->first.Scalar(),
                                LexicalCast<std::string,T>()(ss.str())));
     }
@@ -214,7 +220,7 @@ class ConfigVar : public ConfigVarBase {
   }
   const T getVal() const { return m_val; }
   void setVal(const T& v) { m_val = v; }
-
+  std::string getTypeName()const override {return typeid(T).name();}
  private:
   T m_val;
 };
@@ -226,10 +232,17 @@ class Config {
   static typename ConfigVar<T>::ptr Lookup(const std::string& name,
                                            const T& default_value,
                                            const std::string description = "") {
-    auto tmp = Lookup<T>(name);
-    if (tmp) {
-      SYLAR_LOG_INFO(SYLAR_LOG_ROOT) << "Lookup name" << name << " exists";
-      return tmp;
+    auto it = s_datas.find(name);
+    if( it != s_datas.end()){
+      auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
+      if(tmp){
+        SYLAR_LOG_INFO(SYLAR_LOG_ROOT) << "Lookup name" << name << " exists";
+        return tmp;
+      }else {
+        SYLAR_LOG_ERROR(SYLAR_LOG_ROOT) << "Lookup name" << name << " exists but type invalid :"<< it->second->getTypeName()
+            << " "<<it->second->toString();
+        return nullptr;
+      }
     }
     if (name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._1234567890") !=
         std::string::npos) {
