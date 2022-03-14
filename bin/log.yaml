@@ -16,6 +16,10 @@ logs:
 system:
   port: 9900
   value: 15
-  int_vec:
-    - 10
-    - 30
+  int_vec: [20,40,50]
+  int_list: [30,20,60,20]
+  int_set : [20,30,60,20]
+  int_unordered_set: [20,20,30]
+  str_int_map:
+   k: 30
+   k2: 20
