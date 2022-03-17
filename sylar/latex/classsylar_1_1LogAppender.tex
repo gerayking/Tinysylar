@@ -1,0 +1,50 @@
+\hypertarget{classsylar_1_1LogAppender}{}\doxysection{sylar\+::Log\+Appender Class Reference}
+\label{classsylar_1_1LogAppender}\index{sylar::LogAppender@{sylar::LogAppender}}
+
+
+Inheritance diagram for sylar\+::Log\+Appender\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classsylar_1_1LogAppender__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a16c4d71a72684533056b6b99feec1ed7}\label{classsylar_1_1LogAppender_a16c4d71a72684533056b6b99feec1ed7}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1LogAppender}{Log\+Appender}} $>$ {\bfseries ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_ad49c2fa9abee897253b493323c47fcdd}\label{classsylar_1_1LogAppender_ad49c2fa9abee897253b493323c47fcdd}} 
+virtual void {\bfseries log} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1Logger}{Logger}} $>$ logger, Log\+Level\+::\+Level level, Log\+Event\+::ptr event)=0
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_ade49666352b105396992ddd7099cabb9}\label{classsylar_1_1LogAppender_ade49666352b105396992ddd7099cabb9}} 
+void {\bfseries set\+Formatter} (Log\+Formatter\+::ptr val)
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a6559a10346f097fa8eed13571c9bf5a1}\label{classsylar_1_1LogAppender_a6559a10346f097fa8eed13571c9bf5a1}} 
+void {\bfseries set\+Level} (Log\+Level\+::\+Level level)
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a2c8377316a0318ee901a2b9c7870d969}\label{classsylar_1_1LogAppender_a2c8377316a0318ee901a2b9c7870d969}} 
+void {\bfseries set\+M\+Level} (Log\+Level\+::\+Level m\+Level)
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a06dc49fd7fab6f1ae18d67a32b76e500}\label{classsylar_1_1LogAppender_a06dc49fd7fab6f1ae18d67a32b76e500}} 
+Log\+Formatter\+::ptr {\bfseries get\+Formatter} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a4e1088a64778dda4d6813275bfb763a1}\label{classsylar_1_1LogAppender_a4e1088a64778dda4d6813275bfb763a1}} 
+Log\+Level\+::\+Level {\bfseries m\+\_\+level} = Log\+Level\+::\+D\+E\+B\+UG
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogAppender_a6174f622ce2f4d687612912dcb427dd5}\label{classsylar_1_1LogAppender_a6174f622ce2f4d687612912dcb427dd5}} 
+Log\+Formatter\+::ptr {\bfseries m\+\_\+formatter}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+log.\+h\end{DoxyCompactItemize}

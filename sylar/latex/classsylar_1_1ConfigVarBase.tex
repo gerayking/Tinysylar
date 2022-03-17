@@ -1,0 +1,45 @@
+\hypertarget{classsylar_1_1ConfigVarBase}{}\doxysection{sylar\+::Config\+Var\+Base Class Reference}
+\label{classsylar_1_1ConfigVarBase}\index{sylar::ConfigVarBase@{sylar::ConfigVarBase}}
+
+
+Inheritance diagram for sylar\+::Config\+Var\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classsylar_1_1ConfigVarBase__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_a40f405ae773a67002f6407283a89c344}\label{classsylar_1_1ConfigVarBase_a40f405ae773a67002f6407283a89c344}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1ConfigVarBase}{Config\+Var\+Base}} $>$ {\bfseries ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_aeb9b6f1d613627d1a69497ede2179a6f}\label{classsylar_1_1ConfigVarBase_aeb9b6f1d613627d1a69497ede2179a6f}} 
+{\bfseries Config\+Var\+Base} (const std\+::string \&m\+Name, const std\+::string \&m\+Description=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_aa404a47e82ef657f5e966440a319bf88}\label{classsylar_1_1ConfigVarBase_aa404a47e82ef657f5e966440a319bf88}} 
+const std\+::string \& {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_a22c1ba4557b7099013f3effa24019c41}\label{classsylar_1_1ConfigVarBase_a22c1ba4557b7099013f3effa24019c41}} 
+const std\+::string \& {\bfseries get\+Description} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_a5f8b4b6e0f6fbed4790f31981b8f190c}\label{classsylar_1_1ConfigVarBase_a5f8b4b6e0f6fbed4790f31981b8f190c}} 
+virtual std\+::string {\bfseries to\+String} ()=0
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_a747792b1cfc384a30b1c8f090d9af6b6}\label{classsylar_1_1ConfigVarBase_a747792b1cfc384a30b1c8f090d9af6b6}} 
+virtual bool {\bfseries from\+String} (const std\+::string \&val)=0
+\item 
+\mbox{\Hypertarget{classsylar_1_1ConfigVarBase_a47480d264f9c7e55d6ebb0dfcc99b81a}\label{classsylar_1_1ConfigVarBase_a47480d264f9c7e55d6ebb0dfcc99b81a}} 
+virtual std\+::string {\bfseries get\+Type\+Name} () const =0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+config.\+h\item 
+config.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,32 @@
+\hypertarget{classsylar_1_1Config}{}\doxysection{sylar\+::Config Class Reference}
+\label{classsylar_1_1Config}\index{sylar::Config@{sylar::Config}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a5f1354d59fb1fa12efa8128e669cf766}\label{classsylar_1_1Config_a5f1354d59fb1fa12efa8128e669cf766}} 
+typedef std\+::map$<$ std\+::string, Config\+Var\+Base\+::ptr $>$ {\bfseries Config\+Var\+Map}
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a93a832d33e4a2fbd249c60faa55f495f}\label{classsylar_1_1Config_a93a832d33e4a2fbd249c60faa55f495f}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1Config}{Config}} $>$ {\bfseries ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a604de1fe0c217db7619d33f8891e3575}\label{classsylar_1_1Config_a604de1fe0c217db7619d33f8891e3575}} 
+{\footnotesize template$<$class T $>$ }\\static \mbox{\hyperlink{classsylar_1_1ConfigVar}{Config\+Var}}$<$ T $>$\+::ptr {\bfseries Lookup} (const std\+::string \&name, const T \&default\+\_\+value, const std\+::string description=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a8756af787939964e5d99343549e9b9cd}\label{classsylar_1_1Config_a8756af787939964e5d99343549e9b9cd}} 
+{\footnotesize template$<$class T $>$ }\\static \mbox{\hyperlink{classsylar_1_1ConfigVar}{Config\+Var}}$<$ T $>$\+::ptr {\bfseries Lookup} (const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a2493fc15005de6e9c1e680481d734657}\label{classsylar_1_1Config_a2493fc15005de6e9c1e680481d734657}} 
+static void {\bfseries Load\+From\+Yaml} (const Y\+A\+M\+L\+::\+Node \&root)
+\item 
+\mbox{\Hypertarget{classsylar_1_1Config_a0cd72efaefdc4cffac4ea7d935a46d0c}\label{classsylar_1_1Config_a0cd72efaefdc4cffac4ea7d935a46d0c}} 
+static Config\+Var\+Base\+::ptr {\bfseries Lookup\+Base} (const std\+::string \&name)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+config.\+h\item 
+config.\+cc\end{DoxyCompactItemize}

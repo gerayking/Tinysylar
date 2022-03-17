@@ -255,9 +255,9 @@ class Config {
   typedef std::map<std::string, ConfigVarBase::ptr> ConfigVarMap;
   typedef std::shared_ptr<Config> ptr;
   template <class T>
-  static typename ConfigVar<T>::ptr Lookup(const std::string& name,
-                                           const T& default_value,
-                                           const std::string description = "") {
+    static typename ConfigVar<T>::ptr Lookup(const std::string& name,
+                                             const T& default_value,
+                                             const std::string description = "") {
     auto it = s_datas.find(name);
     if( it != s_datas.end()){
       auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);

@@ -1,0 +1,56 @@
+\hypertarget{classsylar_1_1LogEvent}{}\doxysection{sylar\+::Log\+Event Class Reference}
+\label{classsylar_1_1LogEvent}\index{sylar::LogEvent@{sylar::LogEvent}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a5edba5d4e7c7b90edc5585716065f497}\label{classsylar_1_1LogEvent_a5edba5d4e7c7b90edc5585716065f497}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1LogEvent}{Log\+Event}} $>$ {\bfseries ptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_aa2569abdc211dbdbd1a49586d2cdf40b}\label{classsylar_1_1LogEvent_aa2569abdc211dbdbd1a49586d2cdf40b}} 
+{\bfseries Log\+Event} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1Logger}{Logger}} $>$ logger, Log\+Level\+::\+Level level, const char $\ast$file, int32\+\_\+t line, uint32\+\_\+t elapse, uint32\+\_\+t thread\+\_\+id, uint32\+\_\+t fiber\+\_\+id, uint64\+\_\+t time)
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a6db05c1760d2fb0d9268e6de12832733}\label{classsylar_1_1LogEvent_a6db05c1760d2fb0d9268e6de12832733}} 
+const char $\ast$ {\bfseries get\+File\+Name} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_ab1df35550e5e274c398cc612fe177607}\label{classsylar_1_1LogEvent_ab1df35550e5e274c398cc612fe177607}} 
+int32\+\_\+t {\bfseries get\+Line} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_ab4ef746304d5f2fd749a0bc3366fc72d}\label{classsylar_1_1LogEvent_ab4ef746304d5f2fd749a0bc3366fc72d}} 
+uint32\+\_\+t {\bfseries get\+Elapse} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_aa22e196bd8d83b88c7ce7a7588b7d5f3}\label{classsylar_1_1LogEvent_aa22e196bd8d83b88c7ce7a7588b7d5f3}} 
+uint32\+\_\+t {\bfseries get\+Thread\+Id} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_aee373b68ef27604cbfda4375822285f8}\label{classsylar_1_1LogEvent_aee373b68ef27604cbfda4375822285f8}} 
+uint32\+\_\+t {\bfseries get\+Fiber\+Id} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a83cb90842b18d39975849070c8a4c25f}\label{classsylar_1_1LogEvent_a83cb90842b18d39975849070c8a4c25f}} 
+uint64\+\_\+t {\bfseries get\+Time} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a13a44ff908b0afa2b782c0936b799330}\label{classsylar_1_1LogEvent_a13a44ff908b0afa2b782c0936b799330}} 
+std\+::string {\bfseries get\+Content} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_af67850c4ccc3250ca62bae0b4371ca70}\label{classsylar_1_1LogEvent_af67850c4ccc3250ca62bae0b4371ca70}} 
+std\+::stringstream \& {\bfseries get\+SS} ()
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_ad6f5f38906e5530f80c63657f7ec078d}\label{classsylar_1_1LogEvent_ad6f5f38906e5530f80c63657f7ec078d}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classsylar_1_1Logger}{Logger}} $>$ {\bfseries get\+Logger} () const
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a0b05f208370bfc6f0c0ee8b5e7c6fdea}\label{classsylar_1_1LogEvent_a0b05f208370bfc6f0c0ee8b5e7c6fdea}} 
+Log\+Level\+::\+Level {\bfseries get\+Level} ()
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_a254c687d850b155a0c669e342058a03c}\label{classsylar_1_1LogEvent_a254c687d850b155a0c669e342058a03c}} 
+void {\bfseries format} (const char $\ast$fmt,...)
+\item 
+\mbox{\Hypertarget{classsylar_1_1LogEvent_acf275530cf11d0ea1b4d73d1262f950c}\label{classsylar_1_1LogEvent_acf275530cf11d0ea1b4d73d1262f950c}} 
+void {\bfseries format} (const char $\ast$fmt, va\+\_\+list al)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+log.\+h\item 
+log.\+cc\end{DoxyCompactItemize}
